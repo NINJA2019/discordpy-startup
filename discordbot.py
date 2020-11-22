@@ -1,26 +1,3 @@
-from discord.ext import commands
-import os
-import traceback
-
-bot = commands.Bot(command_prefix='/')
-token = os.environ['DISCORD_BOT_TOKEN']
-
-
-@bot.event
-async def on_command_error(ctx, error):
-    orig_error = getattr(error, "original", error)
-    error_msg = ''.join(traceback.TracebackException.from_exception(orig_error).format())
-    await ctx.send(error_msg)
-
-
-@bot.command()
-async def ping(ctx):
-    await ctx.send('pong')
-
-@bot.command()
-async def neko(ctx):
-    await ctx.send('nyan')
-
 import time
 import requests
 import json
@@ -141,9 +118,4 @@ while True:
     if(((now_time.year > 2020) or ((now_time.year == 2020) and (now_time.month >= 6) and (now_time.day >= 22))) and (now_time.minute == 0) and (now_time.hour % 2 == 0)):
         get_information()
     check_schedule(now_time, broadcast_data)
-    time.sleep(60)    
-    
-    
-    
-
-bot.run(token)
+    time.sleep(60)
